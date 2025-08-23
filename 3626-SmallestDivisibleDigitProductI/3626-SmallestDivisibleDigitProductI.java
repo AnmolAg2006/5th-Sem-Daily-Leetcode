@@ -1,0 +1,18 @@
+// Last updated: 8/23/2025, 10:24:02 PM
+class Solution {
+    public int productOfDigits(int n) {
+        int product = 1;
+        while (n > 0) {
+            product *= n % 10;
+            n /= 10;
+        }
+        return product;
+    }
+
+    public int smallestNumber(int n, int t) {
+        while (productOfDigits(n) % t != 0) {
+            n++;
+        }
+        return n;
+    }
+}
