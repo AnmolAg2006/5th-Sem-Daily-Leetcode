@@ -1,20 +1,21 @@
-// Last updated: 9/27/2025, 10:23:12 AM
+// Last updated: 9/27/2025, 10:29:25 AM
 class Solution {
     public int minStoneSum(int[] piles, int k) {
-        PriorityQueue<Integer>pq=new PriorityQueue<>(Collections.reverseOrder());
-        for(int i:piles)
-        {
-            pq.add(i);
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
+        int total = 0;
+        for(int stone : piles) {
+            total += stone;
+            maxHeap.add(stone);
         }
-        while(k-->0)
+
+        for(int i = 0; i < k; i++)
         {
-            pq.add(pq.peek()-pq.poll()/2);
+            int pile = maxHeap.remove();
+            int remove = pile / 2;
+            total -= remove;
+            maxHeap.add(pile - remove);
         }
-        int ans=0;
-        while(!pq.isEmpty())
-        {
-            ans+=pq.poll();
-        }
-        return ans;
+
+        return total;
     }
 }
