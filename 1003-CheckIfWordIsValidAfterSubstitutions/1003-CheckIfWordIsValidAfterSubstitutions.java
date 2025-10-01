@@ -1,21 +1,22 @@
-// Last updated: 10/1/2025, 11:00:03 AM
+// Last updated: 10/1/2025, 11:01:09 AM
 class Solution {
     public boolean isValid(String s) {
-        Stack<Character>st=new Stack<>();
-        char c[]=s.toCharArray();
-        for(int i=0;i<s.length();i++)
-        {
-            if(s.charAt(i)!='c')
-            {
-                st.push(s.charAt(i));
-            }
-            else{
-                if(st.isEmpty() || st.pop()!='b') return false;
-                if(st.isEmpty() || st.pop()!='a') return false;
-                
-            }
+        Deque<Character> stack = new ArrayDeque<>();
+
+        for(final char c : s.toCharArray())
+        if(c == 'c'){
+            if(stack.size() < 2)
+            return false;
+            if(stack.peek() != 'b')
+            return false;
+            stack.pop();
+            if(stack.peek() != 'a')
+            return false;
+            stack.pop();
+        } else {
+            stack.push(c);
         }
-        return (st.isEmpty())? true:false;
-        
+
+        return stack.isEmpty();
     }
 }
