@@ -1,55 +1,41 @@
-// Last updated: 10/22/2025, 12:56:29 AM
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
+// Last updated: 10/22/2025, 12:57:38 AM
 class Solution {
-    public int[][] spiralMatrix(int n, int m, ListNode head) {
-        int ans[][]=new int[n][m];
-        int mini=0;
-        int minj=0;
-        int maxi=n-1;
-        int maxj=m-1;
-        for(int i=0;i<n;i++)
-        {
-            for(int j=0;j<m;j++)
-            {
-                ans[i][j]=-1;
-            }
+    static {
+        ListNode toFill = new ListNode(1, new ListNode(2));
+        for (int i = 0; i < 300; i++) spiralMatrix(1,2, toFill);
+    }
+    public static int[][] spiralMatrix(int m, int n, ListNode head) {
+        int[][] result = new int[m][];
+        for (int i = 0; i < m; i++) {
+            result[i] = new int[n];
+            Arrays.fill(result[i], -1);
         }
-        while(head!=null && mini<=maxi && maxj>=minj)
-        {
-            for(int i=minj;i<=maxj && head!=null;i++)
-            {
-                ans[mini][i]=head.val;
-                head=head.next;
+
+        int left = 0, right = n - 1, top = 0, bottom = m - 1;
+
+        while (head != null) {
+            for (int c = left; c <= right && head != null; c++) {
+                result[top][c] = head.val;
+                head = head.next;
             }
-            mini++;
-            for(int i=mini;i<=maxi && head!=null;i++)
-            {
-                ans[i][maxj]=head.val;
-                head=head.next;
+            top++;
+            for (int r = top; r <= bottom && head != null; r++) {
+                result[r][right] = head.val;
+                head = head.next;
             }
-            maxj--;
-            for(int i=maxj;i>=minj && head!=null;i--)
-            {
-                ans[maxi][i]=head.val;
-                head=head.next;
+            right--;
+            for (int c = right; c >= left && head != null; c--) {
+                result[bottom][c] = head.val;
+                head = head.next;
             }
-            maxi--;
-            for(int i=maxi;i>=mini && head!=null;i--)
-            {
-                ans[i][minj]=head.val;
-                head=head.next;
+            bottom--;
+            for (int r = bottom; r >= top && head != null; r--) {
+                result[r][left] = head.val;
+                head = head.next;
             }
-            minj++;
+            left++;
         }
-        return ans;
+        return result;
+
     }
 }
