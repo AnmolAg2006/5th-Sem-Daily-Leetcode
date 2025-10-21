@@ -1,28 +1,29 @@
-// Last updated: 10/22/2025, 12:42:49 AM
+// Last updated: 10/22/2025, 12:44:20 AM
 class Solution {
     public int garbageCollection(String[] garbage, int[] travel) {
-        int ans=0;
-        HashMap<Character,Integer>hm=new HashMap<>();
-        int pf[]=new int[travel.length];
-        pf[0]=travel[0];
-        for(int i=1;i<travel.length;i++)
+        int n=garbage.length;
+        int tot=0;
+        for(String g: garbage)
         {
-            pf[i]=travel[i]+pf[i-1];
-            
+            tot+=g.length();
         }
-        for(int i=0;i<garbage.length;i++)
-        {
-            String s=garbage[i];
-            for(char c:s.toCharArray())
-            {
-                hm.put(c,i);
-                ans++;
-            }
+        int lastm=0,lastp=0,lastg=0;
+        for (int i = 0; i < n; i++) {
+            if (garbage[i].contains("M")) lastm = i;
+            if (garbage[i].contains("P")) lastp = i;
+            if (garbage[i].contains("G")) lastg = i;
+
         }
-        for(char c:hm.keySet())
-        {
-            if(hm.get(c)!=0) ans+=pf[hm.get(c)-1];
+         int[] prefix = new int[n];
+        for (int i = 1; i < n; i++) {
+            prefix[i] = prefix[i - 1] + travel[i - 1];
         }
-        return ans;
+        int totalTime = tot 
+                        + prefix[lastm] 
+                        + prefix[lastp] 
+                        + prefix[lastg];
+
+        return totalTime;
+
     }
 }
