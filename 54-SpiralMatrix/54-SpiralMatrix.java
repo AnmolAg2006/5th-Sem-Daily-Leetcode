@@ -1,34 +1,45 @@
-// Last updated: 10/2/2025, 1:46:41 PM
+// Last updated: 11/21/2025, 12:15:12 PM
 class Solution {
     public List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> ans = new ArrayList<>();
-        int n = matrix.length;
-        int m = matrix[0].length;
-        int minr = 0;
-        int maxr = n - 1;
-        int minc = 0;
-        int maxc = m - 1;
-        while (minc <= maxc && minr <= maxr) {
-            for (int i = minc; i <= maxc; i++) {
-                ans.add(matrix[minr][i]);
+        int mini = 0;
+        int minj = 0;
+        int maxi = matrix.length-1;
+        int maxj = matrix[0].length-1;
+        int c=0;
+        int total=matrix.length*matrix[0].length;
+        while (c<total) {
+            for (int j = minj; j <= maxj; j++) {
+                ans.add(matrix[mini][j]);
+                c++;
             }
-            minr++;
-
-            for (int i = minr; i <= maxr; i++) {
-                ans.add(matrix[i][maxc]);
+            mini++;
+            if(c>=total){
+                break;
             }
-            maxc--;
-            if (minr <= maxr) {
-                for (int i = maxc; i >= minc; i--) {
-                    ans.add(matrix[maxr][i]);
-                }
-                maxr--;
+            for (int i = mini; i <= maxi; i++) {
+                ans.add(matrix[i][maxj]);
+                c++;
             }
-            if (minc <= maxc) {
-                for (int i = maxr; i >= minr; i--) {
-                    ans.add(matrix[i][minc]);
-                }
-                minc++;
+            maxj--;
+            if(c>=total){
+                break;
+            }
+            for (int j = maxj ; j >= minj; j--) {
+                ans.add(matrix[maxi][j]);
+                c++;
+            }
+            maxi--;
+            if(c>=total){
+                break;
+            }
+            for (int j = maxi; j >= mini; j--) {
+                ans.add(matrix[j][minj]);
+                c++;
+            }
+            minj++;
+            if(c>=total){
+                break;
             }
         }
         return ans;
