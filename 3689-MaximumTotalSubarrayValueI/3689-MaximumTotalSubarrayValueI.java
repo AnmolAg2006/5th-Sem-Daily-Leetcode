@@ -1,11 +1,15 @@
-// Last updated: 11/26/2025, 4:06:40 PM
+// Last updated: 11/26/2025, 4:07:32 PM
 class Solution {
     public long maxTotalValue(int[] nums, int k) {
-        int min=Integer.MAX_VALUE;
-        int max=Integer.MIN_VALUE;
-        for(int i:nums){
-            min=Math.min(min,i);
-            max=Math.max(max,i);
+        long max = Long.MIN_VALUE;
+        long min = Long.MAX_VALUE;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]>max){
+                max = nums[i];
+            }
+            if(nums[i]<min){
+                min = nums[i];
+            }
         }
         return (long)k*(max-min);
     }
